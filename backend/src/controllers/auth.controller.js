@@ -107,7 +107,7 @@ export const updateProfile = async () => {
                 profilePic: uploadResponse.secure_url,
             },
             { new: true }
-        );
+        ).select("-password");
         res.status(200).json(updatedUser);
     } catch (error) {
         console.log("Error in update profile", error);
