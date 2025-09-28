@@ -5,6 +5,7 @@ import path from "path";
 import connectDB from "./config/db.js";
 import { ENV } from "./config/env.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 
@@ -14,6 +15,7 @@ const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
