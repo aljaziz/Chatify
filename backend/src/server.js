@@ -6,14 +6,13 @@ import connectDB from "./config/db.js";
 import { ENV } from "./config/env.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
-const app = express();
+import { app, server } from "./config/socket.js";
 
 const __dirname = path.resolve();
 
 const PORT = ENV.PORT || 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
 app.use(cookieParser());
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 
@@ -29,7 +28,7 @@ if (ENV.NODE_ENV === "production") {
     });
 }
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log(`Server running on port ${PORT}`);
     connectDB();
 });
